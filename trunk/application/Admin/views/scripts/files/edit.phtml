@@ -1,0 +1,23 @@
+<?php
+if($this->error):
+    echo "<div class=\"error\">$this->error</div>";
+else:
+    if($this->notice){
+    	echo "<div class=\"notice\">$this->notice</div>";
+    }
+?>
+<div class="header-line"><?php echo $this->itemName;?>詳細信息</div>
+<?php
+    if(isset($this->form->file_name_src)){
+        $str = "<a href=\"".$this->baseUrl().$this->uploadPath.$this->form->file_name_src->getValue()."\">查看文件</a>";
+        echo str_replace("fileDescription",$str,$this->form);
+    }
+    else
+        echo $this->form;
+
+?>
+
+
+<?php
+endif;
+?>

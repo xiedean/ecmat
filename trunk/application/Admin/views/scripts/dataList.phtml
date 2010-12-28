@@ -1,0 +1,152 @@
+
+<?php if ($this->count): ?>
+
+<form method="GET" action="">
+<table class="data-narrow">
+		<tr class="odd">
+			<td class="data-grid">
+			<input type="text" value="<?php echo $this->escape($this->keyword); ?>" name="keyword" size="10" id="keyword">
+			<input type="submit" value="Search" name="search">
+			</td>
+		</tr>
+</table>
+</form>
+
+<?php if( isset($this->wrongIndex) && $this->wrongIndex ):?>
+<div class="notice">Index must be numeric.</div>
+<?php endif;?>
+<form id="data_list_form" method="POST" action="<?php echo $this->url(array('action'=>'changegroup'));?>">
+<table id="data">
+	<tr>
+	<?php if (count($this->columns)) { ?>
+	    <td class="data-header"></td>
+	<?php foreach ($this->columns as $column) : ?>
+	<?php if($column['colType']=="checkAllColumn") {?>
+	     <td class="data-header checkGrid"><input id="checkAll" type="checkbox"></td>	  
+	<?php }elseif ($column['colType'] != 'expression') { ?>
+		<td class="data-header">
+			<a href="<?php echo $this->url(array('controller'=>$this->controllerName,'action'=>$this->actionName,'by'=>$column['colName'],'order'=>$this->getOrder($column['colName'], $this->by, $this->order)));?>">
+			&nbsp;&nbsp;<?php echo $column['colTitle']?>&nbsp;<img src="<?php echo $this->baseUrl();?>/images/<?php echo $this->sort($column['colName'], $this->by, $this->order)?>.gif"></a>
+		</td>
+	
+	<?php } else { ?>
+		<td class="data-header">
+			<?php echo $column['colTitle']; ?>
+		</td>
+	<?php }	?>
+	<?php endforeach; ?>
+	<?php if(!in_array($this->controllerName, array("a"))):?>
+		<td class="data-header">操作</td>
+	<?php endif;?>
+	</tr>
+	<?php
+	$odd_row = true;
+	$index_field = false;
+	foreach($this->paginator as $key=>$item) : ?>
+	<tr class="<?php echo $odd_row?"odd":"even"; if ($odd_row) $odd_row = false; else $odd_row = true;?>">
+	    <td class="data-grid center"><?php echo ($this->paginator->getCurrentPageNumber()-1)*30+$key+1;?></td>
+	<?php $a= null;
+	foreach ($this->columns as $column) { 
+		switch ($column['colType']) {
+			case 'text':
+				if( in_array($column['colName'],array('username','firstname','lastname') )) {
+					$text = $item[$column['colName']] ? $item[$column['colName']] : "Deleted";
+				}else {
+					$text = $this->placeGreen($item[$column['colName']]) ;
+				}
+				if($column['colName'] == 'level')
+				    $text = $item['level'];
+				break;
+			case 'enum':
+				$text = $column['colValues'][$item[$column['colName']]];
+				break;
+			case 'expression':
+				$text = ($column['Expression'] == $item[$column['colName']])?
+									str_replace('$item['.$column['colName'].']',$item[$column['colName']],$column['colValues'][0])
+									:str_replace('$item["'.$column['colName'].'"]',$item[$column['colName']],$column['colValues'][1]);
+				break;
+			case 'price':
+				$text = "$ ".$item[$column['colName']];
+				break;
+			case 'index':
+			    $index_field = true;
+			    $text = "<input type='text' name='index_{$item['id']}' class='index_field' value='".$item[$column['colName']]."'>
+			             <input type='hidden' name='index_old_{$item['id']}' value='".$item[$column['colName']]."'>
+			             <input type='hidden' name='id_{$item['id']}' value='".$item['id']."'>";
+			    break;
+			case 'checkAllColumn' :
+			    $text = '<input name="idsToDelete[]" value="' . $item['id'] . '" type="checkbox">';
+        		break;
+			default:
+				break;
+		}
+		if($column['colType'] == 'checkAllColumn' ) 
+		    echo '<td class="data-grid center">' . $text . '</td>';
+		else
+		    echo '<td class="data-grid">' . $text . '</td>';
+	}
+	?>
+	<?php if( in_array($this->controllerName, array("planpayment","board")) ) :?>
+		<td class="data-grid">
+			<a href="<?php echo $this->url(array('module'=>$this->moduleName,'controller'=>$this->controllerName,'action'=>'delete', 'id'=>$item['id'], 'site'=>$this->site_id),null,true);?>">
+				<img src="<?php echo $this->baseUrl();?>/images/b_drop.png" title="Delete this record"></a>
+		</td>
+	<?php elseif(!in_array($this->controllerName, array("a"))):?>
+	    <td class="data-grid">
+	        <?php if($this->controllerName != "comment"):?>
+			<a href="<?php echo $this->url(array('module'=>$this->moduleName,'controller'=>$this->controllerName,'action'=>'edit', 'id'=>$item['id'] ,'site'=>$this->site_id),null,true);?>">
+				<img src="<?php echo $this->baseUrl();?>/images/b_edit.png" title="Edit this record"></a>
+			<?php endif;?>
+			<a href="<?php echo $this->url(array('module'=>$this->moduleName,'controller'=>$this->controllerName,'action'=>'delete', 'id'=>$item['id'], 'site'=>$this->site_id),null,true);?>">
+				<img src="<?php echo $this->baseUrl();?>/images/b_drop.png" title="Delete this record"></a>
+		</td>
+	<?php endif;?>
+	</tr>
+	<?php endforeach; ?>
+	<?php } //end columns ?>
+
+	<?php if( $index_field ):?>
+	<tr>
+	    <?php foreach ($this->columns as $column) :?>
+	    <td class="blank">
+	        <?php if ($column['colName']=='index'):?>
+	        <input type="submit" value="Update Index">
+	        <?php endif;?>
+	    </td>
+	    <?php endforeach;?>
+	    <td class="blank"></td>
+	</tr>
+	<?php endif;?>
+	
+	<?php 
+	foreach ($this->columns as $column) :
+	    if($column['colType'] == 'checkAllColumn' ) :
+	     
+	?>
+	    <tr>
+	        <td colspan="10">
+	            <?php 
+	            if($this->groupItems):
+	                $gArr = array('0'=>'請選擇一個分組');
+	                foreach($this->groupItems as $g) {
+	                    $gArr[$g['group_id']] = $g['group_name'];
+	                }
+	                echo $this->formSelect('user_group',null,null,$gArr);
+	            ?>
+	            <input type="submit" id="setGroup" value="設置">
+	            <?php
+	            endif;
+	            ?>
+	        </td>
+	    </tr>
+	<?php 
+	    endif;
+	endforeach;
+	?>
+</table>
+
+</form>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml',array('keyword'=>$this->keyword)); ?>
+<?php else:?>
+    <div class="delete">还没有内容</div>
+<?php endif; ?>

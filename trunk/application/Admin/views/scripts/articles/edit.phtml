@@ -1,0 +1,43 @@
+<?php
+if($this->error):
+    echo "<div class=\"error\">$this->error</div>";
+else:
+    if($this->notice){
+    	echo "<div class=\"notice\">$this->notice</div>";
+    }
+?>
+<div class="header-line">
+    <?php echo $this->itemName;?>詳細信息
+    <?php
+    if($this->addPage):?>
+    <span class="newPageLink">
+    <?php
+        if($this->pages):
+            echo "分頁 : ";
+            foreach($this->pages as $p):
+    ?>
+        <span class="pageItemLink">
+            [<a href="<?php echo $this->url(array('controller'=>'articles','action'=>'addpage','module'=>'admin','id'=>$this->addPage,'page'=>$p['article_page'],'site'=>$this->site_id),null,true);?>">
+                <?php echo $p['article_page'];?>
+            </a>]
+        </span>
+    <?php  endforeach;
+        endif;
+    ?>
+        <span class="newPageItemLink">
+            <a href="<?php echo $this->url(array('controller'=>'articles','action'=>'addpage','module'=>'admin','id'=>$this->addPage,'site'=>$this->site_id),null,true);?>">
+               [ 插入新一頁 ]
+            </a>
+        </span>
+    </span>
+    <?php endif;?>
+</div>
+<?php
+    echo $this->form;
+
+?>
+
+
+<?php
+endif;
+?>

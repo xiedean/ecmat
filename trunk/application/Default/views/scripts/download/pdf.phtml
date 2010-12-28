@@ -1,0 +1,21 @@
+<?php if($this->row):?>
+<div id="wapperHead">
+    <div class="headTitle"><?php echo $this->row['file_name'];?></div>
+</div>
+<?php endif;?>
+<div id="wapperBody">
+<div id="playerDiv" style="width:520px;height:900px;"></div>
+<?php /*
+<script type="text/javascript" src="http://pdfmenot.com/embed/?url=http://mprool.com<?php echo $this->path.$this->filename;?>&width=520&height=900"> </script>
+*/
+?>
+</div>
+
+<script type="text/javascript">
+var qs_userid = 3208995;		     
+var qs_url = "http://www.ecmat.org<?php echo $this->path.$this->row['file_name_src'];?>";	   
+var qs_title="<?php echo $this->row['file_name'];?>";    
+var qs_desc="";       
+var qs_playerDiv="playerDiv";
+</script>
+<script type="text/javascript" src="http://www.docin.com/apps/quickswitch/auto.js"></script>

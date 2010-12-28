@@ -1,0 +1,91 @@
+<div id="header">
+    <div id="header_l">
+		<div id="header_r">
+			<div class="site_title">
+				<div class="site_logo">
+					<a href="<?php echo $this->baseUrl();?>/index">
+					<img src="<?php echo $this->baseUrl();?>/images/blank.gif" title="MPRO">
+					</a>
+				</div>
+				<div class="little_title">
+					<ul>
+						<li class="setHome">
+							<a href="javascript:void(0);" onclick="SetHome(this,window.location)">設為首頁</a> 
+						</li>
+						<li class="signUp">
+							<a href="<?php echo $this->url(array('action'=>'signup'),null,true);?>">加入會員</a>
+						</li>
+						<li class="signIn">
+							<a href="<?php echo $this->url(array('action'=>'login','controller'=>'account'),null,true);?>">會員登錄</a>
+						</li>
+					</ul>
+				</div>
+				<div class="site_txt">
+					<a href="<?php echo $this->baseUrl();?>/index">
+						<img src="<?php echo $this->baseUrl();?>/images/blank.gif" class="mpro_name" title="台灣傳播管理研究協會">
+					</a>
+				</div>
+				<div class="clr"></div> 
+			</div> 
+		</div> 
+	</div>
+</div>
+<div id="tabarea">
+    <div id="tabarea_l"> 
+		<div id="tabarea_r"> 
+			<div id="tabmenu">    
+				<table class="pill" cellspacing="0" cellpadding="0">  
+					<tr>     
+						<td class="pill_m">
+							<div id="pillmenu">   
+								<ul id="mproNav" class="mainlevel-nav">   
+									<li>                         
+										<a id="id1" class="mainlevel-nav" href="<?php echo $this->baseUrl();?>/index">首頁</a>  
+									</li>      
+									<li>       
+										<a id="ids2" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'page','action'=>'detail','id'=>2),null,true);?>">CMAT</a>                        
+									</li>            
+									<li>              
+										<a id="id4" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>4),null,true);?>">產學交流</a> 
+									</li>            
+									<li>       
+										<a id="id5" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>5),null,true);?>">研究</a> 
+									</li>       
+									<li>      
+										<a id="id6" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>6),null,true);?>">管理知識產業化</a>  
+									</li>            
+									<li>             
+										<a id="id7"class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>7),null,true);?>">產業管理知識化</a>      
+									</li>                     
+									<li>                    
+										<a id="id11" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>11),null,true);?>">歷年活動</a> 
+									</li>    
+									<li>                    
+										<a id="idsPhotos" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'photos'),null,true);?>">歷年照片</a> 
+									</li>									
+									<li>                 
+										<a id="id37" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>37),null,true);?>">人才培育</a>       
+									</li>                                  
+									<li>                              
+										<a id="idsMagazine" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'download','action'=>'magazine'),null,true);?>">傳管會刊</a>           
+									</li>    
+									<li>     
+										<a id="idsContact" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'contact'),null,true);?>">聯繫我們</a>         
+									</li>            
+								</ul>              
+							</div>                  
+						</td>             
+					</tr>             
+				</table>        
+			</div>    
+		</div>   
+	</div>
+</div>
+
+<div id="search">   
+	<?php echo $this->layout()->search; ?>
+</div>
+<div id="pathway">  
+	<?php echo $this->layout()->pathway; ?>
+</div>
+

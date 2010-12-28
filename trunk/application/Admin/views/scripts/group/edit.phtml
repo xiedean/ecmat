@@ -1,0 +1,18 @@
+<?php
+if($this->error):
+    echo "<div class=\"error\">$this->error</div>";
+else:
+    if($this->notice){
+    	echo "<div class=\"notice\">$this->notice</div>";
+    }
+?>
+<div class="header-line"><?php echo $this->itemName;?>詳細信息</div>
+<?php 
+    echo $this->form;
+
+?>
+
+
+<?php 
+endif;
+?>

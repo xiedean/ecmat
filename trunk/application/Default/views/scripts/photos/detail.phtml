@@ -1,0 +1,42 @@
+<div class="navDiv">
+<?php
+            if($this->navArray){
+                foreach($this->navArray as $key=>$nav){
+                    if($key != "title")
+                        echo "<a href=\"$nav\">$key</a> > ";
+                    else
+                        echo "$nav";
+                }
+
+            }
+        ?>
+</div>
+<?php if ($this->count): ?>
+<div class="albumnList">
+    <ul class="albumnListItem">
+    <?php foreach($this->paginator as $item) : ?>
+        <li>
+            <div class="photoAlbumn2">
+                <a class="photoAlbumnLink" href="<?php echo $this->url(array('controller'=>'photos','action'=>'view','photo'=>$item['id']),null,true);?>">
+                    <img class="albumnHandle" src="<?php
+                    if($item['string']){
+                        echo $this->baseUrl().$this->albumnPath.$item['albumn_id']."/".$this->thumbnailPhoto($item['string']);
+                    }
+                    else {
+                        echo $this->baseUrl()."/images/blank.gif";
+                    }?>">
+                </a>
+            </div>
+            <div class="albumnName">
+                 <?php echo $item['photo_name'];?>
+            </div>
+
+        </li>
+    <?php endforeach;?>
+    </ul>
+    <div class="clr"></div>
+</div>
+<?php echo  $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+<?php else:?>
+    <div class="delete">還沒有內容</div>
+<?php endif; ?>

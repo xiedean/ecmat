@@ -1,0 +1,29 @@
+<div class="componentheading"><?php echo $this->className;?></div>
+
+<div class="componentList">
+    <ul class="listOne">
+<?php
+if($this->paginator):
+foreach($this->paginator as $item):
+?>
+        <li>
+            <?php if($item['subtitle']):?>
+            <span class="title2"><?php echo $item['subtitle'];?></span>
+            <?php endif;?>
+            <a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$item['article_id']),null,true);?>">
+                <?php echo $this->placeGreen($item['title']);?>
+            </a>
+            <?php if($this->subClass):?>
+            <span class="small">[ <a href="<?php echo $this->url(array('controller'=>'category','id'=>$item['class_id']),null,true);?>"><?php echo $item['class_name'];?></a> ]</span>
+            <?php endif;?>
+            <span class="small"><?php echo $item['created'];?></span>
+        </li>
+
+<?php
+endforeach;
+endif;
+?>
+    </ul>
+</div>
+
+<?php if($this->paginator) echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>

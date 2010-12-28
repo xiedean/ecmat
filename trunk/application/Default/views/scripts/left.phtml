@@ -1,0 +1,90 @@
+<div class="forum">
+    <div id="yang">
+		<a href="http://echyang.com"> 
+			<img class="yangHandle" src="<?php echo $this->baseUrl();?>/images/blank.gif">
+		</a>    
+	</div> 
+	<a href="http://echyang.com"> 
+		<h3>楊志弘博士專欄</h3>    
+	</a>        
+	
+</div>
+<!--[if IE 6]><div class="clr"></div><div class="ie6sep"></div><![endif]-->
+<div class="module_menu">
+    <div>       
+		<div>          
+			<div>
+				<h3>產業點評</h3>
+				<?php if($this->industryComment):?> 
+				<div class="moduleHead">  
+					<a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$this->industryComment['article_id']),null,true);?>"> 
+						<?php echo $this->industryComment['title']; ?> 
+					</a>   
+				</div>  
+				<div class="moduleDetail">                   
+					<a class="blackLink" href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$this->industryComment['article_id']),null,true);?>"> 
+						<?php echo $this->utf8strlen($this->industryComment['content'])> 25? $this->utf8substr($this->industryComment['content'],0, 25)."...": $this->utf8substr($this->industryComment['content']) ?>    
+					</a>          
+					<div class="moreRight">   
+						(                       
+						<a href="<?php echo $this->url(array('controller'=>'category','id'=>36),null,true);?>">
+							More        
+						</a>     
+						)       
+					</div>   
+				</div>     
+				<?php endif;?> 
+			</div>   
+		</div>   
+	</div>
+</div>
+<!--[if IE 6]><div class="clr"></div><div class="ie6sep"></div><![endif]-->
+<div class="module_menu">   
+	<div> 
+		<div>  
+			<div>   
+				<EMBED src="http://sjs.sinajs.cn/miniblog2/static/swf/miniblogwidget.swf" quality="high" width="183" height="350" align="L" scale="noborder" flashvars="width=183&height=350&uid=1707538283&skin=skin1" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"></EMBED>
+			</div>   
+		</div>   
+	</div>
+</div>
+<!--[if IE 6]><div class="clr"></div><div class="ie6sep"></div><![endif]-->
+<div class="module_menu">
+    <div>
+	<div> 
+	<div>
+	<div style="width:183px; height:350px;">
+	<iframe src="http://www.plurk.com/getWidget?uid=5863839&amp;h=350&amp;w=183&amp;u_info=2&amp;bg=cf682f&tl=cae7fd" width="183" frameborder="0" height="350" scrolling="no"></iframe>	
+	<div style="float: right; padding: 1px;"> 	
+	<a href="http://plurk.com/" target="_blank" style="font-size: 10px !important; color: #999 !important; border: none; text-decorate: none;" title="Plurk - A Social Journal for your life">Plurk.com</a>	   
+	</div>     
+	</div>   
+	</div>     
+  	</div> 
+	</div>
+</div>
+<!--[if IE 6]><div class="clr"></div><div class="ie6sep"></div><![endif]-->
+<div class="module_menu"> 
+	<div>
+		<div>
+			<div> 
+				<h3>專業網站連接</h3>
+				<ul> 
+					<?php                   
+					if($this->links):  
+					foreach($this->links as $row): 
+					?>  
+						<li>  
+							<a href="<?php echo $row['url'];?>">   
+								<?php echo $row['name'];?>   
+							</a>             
+						</li>         
+					<?php   
+					endforeach;  
+					endif;    
+					?>    
+				</ul> 
+			</div> 
+		</div> 
+	</div>
+</div>

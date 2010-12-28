@@ -1,0 +1,47 @@
+
+<?php
+if($this->error) :
+    echo "<div class=\"error\">$this->error</div>";
+else :
+    if($this->notice):
+        echo "<div class=\"notice\">$this->notice</div>";
+    endif;
+?>
+<div class="uploadLink"> <a href="<?php echo $this->url(array('module'=>'admin','controller'=>'albumns','action'=>'photo','albumn'=>$this->albumn_id),null,true);?>"> 上传照片</a></div>
+<?php if ($this->count): ?>
+<div class="albumnList">
+    <ul class="albumnListItem">
+    <?php foreach($this->paginator as $item) : ?>
+        <li>
+            <div class="photoAlbumn2">
+                <a class="photoAlbumnLink" href="<?php echo $this->url(array('controller'=>'albumns','action'=>'view','module'=>'admin','photo'=>$item['id']),null,true);?>">
+                    <img class="albumnHandle" src="<?php
+                    if($item['string']){
+                        echo $this->baseUrl().$this->albumnPath.$item['albumn_id']."/".$this->thumbnailPhoto($item['string']);
+                    }
+                    else {
+                        echo $this->baseUrl()."/images/blank.gif";
+                    }?>">
+                </a>
+            </div>
+            <div class="albumnName">
+                 <?php echo $item['photo_name'];?>
+            </div>
+            <div class="action">
+                <input type="hidden" name="thumbnail_<?php echo $item['id'];?>" value="<?php echo $item['photo_name'];?>">
+                <a class="actionBtn delete" name="thumbnail_<?php echo $item['id'];?>" href="javascript:void(0);">
+				    <img src="<?php echo $this->baseUrl();?>/images/b_drop.png" title="Delete this record">
+				</a>
+            </div>
+        </li>
+    <?php endforeach;?>
+    </ul>
+    <div class="clr"></div>
+</div>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+<?php else:?>
+    <div class="delete">还没有内容</div>
+<?php endif; ?>
+<?php
+endif;
+?>

@@ -1,0 +1,29 @@
+
+<?php if ($this->count): ?>
+<div class="albumnList">
+    <ul class="albumnListItem">
+    <?php foreach($this->paginator as $item) : ?>
+        <li>
+            <div class="photoAlbumn">
+                <a class="photoAlbumnLink" href="<?php echo $this->url(array('controller'=>'photos','action'=>'detail','albumn'=>$item['albumn_id']),null,true);?>">
+                    <img class="albumnHandle" src="<?php
+                    if($this->albumnPhoto($item['albumn_id'])){
+                        echo $this->baseUrl().$this->albumnPath.$item['albumn_id']."/".$this->albumnPhoto($item['albumn_id']);
+                    }
+                    else {
+                        echo $this->baseUrl()."/images/blank.gif";
+                    }?>">
+                </a>
+            </div>
+            <div class="albumnName">
+                 <?php echo $item['albumn_name'];?>
+            </div>
+        </li>
+    <?php endforeach;?>
+    </ul>
+    <div class="clr"></div>
+</div>
+<?php echo  $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+<?php else:?>
+    <div class="delete">還沒有內容</div>
+<?php endif; ?>

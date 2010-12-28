@@ -1,0 +1,70 @@
+ <?php
+    if($this->row):
+    ?>
+    <?php if(trim($this->row['video']) && !trim($this->row['video_embed'])):?>
+	    <script type="text/javascript">
+		function VideoShowOnload() {
+		    	var so = new SWFObject('<?php echo $this->baseUrl();?>/player/player.swf','mpl','500','400','9');
+		    	so.addParam('allowscriptaccess','always');
+		    	so.addParam('allowfullscreen','true');
+		    	so.addVariable('enablejs','true');
+		    	so.addVariable('javascriptid','mpl');
+		    	so.addVariable('type','flv');
+		    	so.addParam('autostart','false');
+		    	so.addParam('flashvars','&file=<?php echo $this->domain().$this->baseUrl.$this->videoPath().$this->row['video'];?>&image=<?php echo $this->domain().$this->baseUrl.$this->imagePath().$this->row['image'];?>');
+		    	so.write('playerDiv');
+		    	//setTimeout("so.write('news_image');",10);
+		    }
+		    $(document).ready(function(){
+		    	VideoShowOnload();
+		    });
+		</script>
+	<?php endif;?>
+    <div class="contentheading3"><?php echo $this->placeGreen($this->row['title']);?></div>
+    <div class="small center">
+        <span class="line">編輯：<?php echo $this->row['author'];?></span>
+        <span class="line"><?php echo $this->row['created'];?></span>
+    </div>
+    <div class="contentDetail">
+    	<div id="playerDiv"></div>		<?php if(trim($this->row['video_embed'])) :?>		<div class="center">			<?php echo $this->row['video_embed'];?>		</div>		<?php endif;?>
+        <?php echo $this->content; ?>
+
+    </div>
+    <?php if($this->pages):?>
+    <div class="pagesNav">        分頁：
+        <span class="pageItemLink">
+        <?php
+        if($this->page < 2):
+            echo "[ 1 ]";
+        else:
+        ?>
+            [<a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$this->row['article_id']),null,true);?>">
+                1
+            </a>]
+        <?php
+        endif;
+        ?>
+        </span>
+
+        <?php
+        foreach($this->pages as $p):
+             if($this->page == $p['article_page']):?>
+                 <span class="pageItemLink">
+                     <?php echo $p['article_page'];?>
+                 </span>
+             <?php else:?>
+                 <span class="pageItemLink">
+                     [<a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$this->row['article_id'],'page'=>$p['article_page']),null,true);?>">
+                          <?php echo $p['article_page'];?>
+                 </a>]
+                </span>
+        <?php
+            endif;
+        endforeach;?>
+    </div>
+    <?php endif;?>
+    <?php
+    else:
+        echo "還沒有內容";
+    endif;
+    ?>

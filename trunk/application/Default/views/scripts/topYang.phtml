@@ -1,0 +1,81 @@
+<div id="header">
+    <div class="site_logo_yang"><a href="<?php echo $this->baseUrl();?>/index"><img src="<?php echo $this->baseUrl();?>/images/blank.gif"></a></div>
+    <div class="site_logo_right">
+        <div id="header_r_yang">
+            <div class="site_title">
+
+                <div class="little_title">
+                    <ul>
+                        <li class="setHome"><a href="javascript:void(0);" onclick="SetHome(this,window.location)">设为首页</a> </li>
+                        <li class="signUp"><a href="<?php echo $this->url(array('action'=>'signup'),null,true);?>">加入会员</a></li>
+                        <li class="signIn"><a href="<?php echo $this->url(array('action'=>'login','controller'=>'account'),null,true);?>">会员登录</a></li>
+                    </ul>
+                </div>
+                <div class="site_txt_yang">
+                    <a href="http://echyang.com">
+                        <img src="<?php echo $this->baseUrl();?>/images/blank.gif" class="yang_name">
+                    </a>
+                </div>
+            </div>
+        </div><!-- #end header_r_yang -->
+
+<div id="tabarea_yang">
+    <div id="tabarea_l">
+        <div id="tabarea_r">
+            <div id="tabmenu">
+                <table class="pill" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td class="pill_l"> </td>
+                        <td class="pill_m">
+                            <div id="pillmenu">
+                                <ul class="mainlevel-nav">
+                                    <li>
+                                        <a id="id1" class="mainlevel-nav" href="<?php echo $this->baseUrl();?>/index">首页</a>
+                                    </li>
+
+                                    <li>
+                                        <a id="ids5" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'page','action'=>'detail','id'=>5),null,true);?>">个人介绍</a>
+                                    </li>
+                                    <li>
+                                        <a id="id4" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>4),null,true);?>">活动讯息</a>
+                                    </li>
+                                    <li>
+                                        <a id="id5" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>5),null,true);?>">相关报道</a>
+                                    </li>
+                                    <li>
+                                        <a id="idsPhotos" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'photos'),null,true);?>">照片</a>
+                                    </li>
+                                    <li>
+                                        <a id="id11" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>11),null,true);?>">专栏</a>
+                                    </li>
+
+                                    <li>
+                                        <a id="id21" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>21),null,true);?>">期刊论文</a>
+                                    </li>
+                                    <li>
+                                        <a id="id22" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'category','id'=>22),null,true);?>">著作</a>
+                                    </li>
+                                    <li>
+                                        <a id="idsContact" class="mainlevel-nav" href="<?php echo $this->url(array('controller'=>'contact'),null,true);?>">联系杨志弘</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </td>
+                        <td class="pill_r"> </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div><!-- #end .site_logo_right -->
+</div><!-- #end #header -->
+
+<div id="search">
+        <?php echo $this->layout()->search; ?>
+</div>
+<div id="pathway">
+        <?php echo $this->layout()->pathway; ?>
+</div>
+

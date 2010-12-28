@@ -1,0 +1,14 @@
+
+<?php
+if($this->error) :
+    echo "<div class=\"error\">$this->error</div>";
+else :
+    if($this->notice):
+        echo "<div class=\"notice\">$this->notice</div>";
+    endif;
+?>
+<?php echo $this->render('dataList.phtml');?>
+
+<?php
+endif;
+?>
