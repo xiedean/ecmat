@@ -1,0 +1,37 @@
+
+<?php
+if($this->error) :
+    echo "<div class=\"error\">$this->error</div>";
+else :
+    if($this->notice):
+        echo "<div class=\"notice\">$this->notice</div>";
+    endif;
+?>
+<?php echo $this->render('dataList.phtml');?>
+
+<?php 
+    if($this->birthdayUsers) :
+?>
+    <div class="subWapper">
+        <h4>會員生日提醒</h4>
+        <ul>
+            <?php
+            foreach($this->birthdayUsers as $user):
+                if(date("m-d",strtotime($user['birthday'])) == date("m-d")) 
+                    $text = "<span class=\"red\">今天生日</span>";
+                else
+                    $text = $user['birthday']." 生日";
+            ?>
+            <li><?php echo $user['username']. " " . $text;?></li>
+            
+            <?php 
+            endforeach;
+            ?>
+           
+        </ul>
+        <div class="clr"></div>
+    </div>
+<?php
+    endif;
+endif;
+?>

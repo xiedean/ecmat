@@ -1,0 +1,25 @@
+
+    <div class="contentDownload">
+    <ul>
+    <?php
+    if($this->rows):
+        foreach ($this->rows as $data):
+    ?>
+
+
+        <li>
+            <a href="<?php echo $this->baseUrl().$this->path.$data['file_name_src'];?>">
+                <?php echo $data['file_name']; ?>
+            </a>
+
+        </li>
+
+
+    <?php
+        endforeach;
+    else:
+        echo "還沒有內容";
+    endif;
+    ?>
+    </ul>
+    </div>

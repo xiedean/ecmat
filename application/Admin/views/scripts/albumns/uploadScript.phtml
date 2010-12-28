@@ -1,0 +1,55 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/handlers.js"></script>
+<script type="text/javascript">
+		var swfu;
+		window.onload = function () {
+			swfu = new SWFUpload({
+				// Backend Settings
+				upload_url: "<?php echo $this->baseUrl();?>/admin/albumns/upload",	// Relative to the SWF file or absolute
+				post_params: {"sid": "<?php echo session_id(); ?>","albumn_id": "<?php echo $this->albumn_id; ?>","role":"<?php echo $this->role;?>","id":"<?php echo $this->loggedInUser->user_id;?>"},
+				debug : true,
+
+
+				// File Upload Settings
+				file_size_limit : "2 MB",	// 2MB
+				file_types : "*.jpg;*.gif;*.png",
+				file_types_description : "Image Files",
+				file_upload_limit : "0",
+
+				// Event Handler Settings - these functions as defined in Handlers.js
+				//  The handlers are not part of SWFUpload but are part of my website and control how
+				//  my website reacts to the SWFUpload events.
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+
+				// Button Settings
+				button_image_url : "<?php echo $this->baseUrl();?>/images/SmallSpyGlassWithTransperancy_17x18.png",	// Relative to the SWF file
+				button_placeholder_id : "spanButtonPlaceholder",
+				button_width: 160,
+				button_height: 18,
+				button_text : '<span class="button">選擇圖片 <span class="buttonSmall">(小於 2MB)</span></span>',
+				button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }',
+				button_text_top_padding: 0,
+				button_text_left_padding: 18,
+				button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+				button_cursor: SWFUpload.CURSOR.HAND,
+
+				// Flash Settings
+				flash_url : "<?php echo $this->baseUrl();?>/swfupload/swfupload.swf",
+
+				custom_settings : {
+					upload_target : "divFileProgressContainer",
+					img_url : "<?php echo $this->baseUrl();?>/images/",
+					slide_url : "<?php echo $this->baseUrl().$this->albumnPath.$this->albumn_id;?>/",
+					thumbnail_url : "<?php echo $this->baseUrl();?>/admin/albumns/thumbnail/sid/<?php echo session_id(); ?>/role/<?php echo $this->role;?>/admin_id/<?php echo $this->loggedInUser->user_id;?>"
+				},
+
+				// Debug Settings
+				debug: false
+			});
+		};
+	</script>

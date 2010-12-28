@@ -1,0 +1,19 @@
+<div class="componentheading"><?php echo $this->itemName($this->itemId);?></div>
+
+<div class="componentList">
+    <ul class="listOne">
+<?php
+foreach($this->paginator as $item):
+?>
+        <li>
+            <?php echo $item['title'];?>
+            <span class="small"><?php echo $item['created'];?></span>
+        </li>
+
+<?php
+endforeach;
+?>
+    </ul>
+</div>
+
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>

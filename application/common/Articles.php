@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * Articles
+ *
+ * @author Administrator
+ * @version
+ */
+
+
+class Articles extends Moore_Db_Table
+{
+	/**
+	 * The default table name
+	 */
+	protected $_name = 'articles';
+
+    public function getAllQuery( $site_id,$where=null,$order=null,$limit=null )
+	{
+		$query = $this->_db->select()
+		              ->from( array('a'=>$this->_name),array('*','id'=>'article_id'))
+		              ->joinLeft( array('c'=>'classes'),'c.class_id = a.class_id','*')
+		              ->where( "c.belong = ?",$site_id);
+		if($where){
+			$query->where($where);
+		}
+		if($order){
+			$query->order($order);
+		}
+		else{
+		    $query->order("a.article_id DESC");
+		}
+		if($limit){
+			$query->limit($limit);
+		}
+
+		return $query;
+	}
+
+
+	public function getArticleById( $id )
+	{
+		if( !$id ){
+			return false;
+		}
+
+		$row = $this->fetchRow("article_id = '$id'");
+		if($row){
+			$row = $row->toArray();
+		}
+		return $row;
+	}
+
+	public function getArticlesByClass( $class_id, $count=null )
+	{
+	    $query = $this->_db->select()
+	                       ->from( "$this->_name as a")
+	                       ->joinLeft("classes as c",'c.class_id=a.class_id',array('class_name'))
+	                       ->where("a.class_id = ?",$class_id)
+	                       ->order("a.article_id DESC");
+	    if($count){
+	        $query->limit($count);
+	    }
+	    $rows = $this->_db->fetchAll($query);
+	    if(count($rows) == 0){
+	        return false;
+	    }
+	    return $rows;
+	}
+
+	public function getTop2ArticleByClass( $class_id )
+	{
+	    $where = "`class_id`= '$class_id' or focus='1'";
+	    $order = "modify_time DESC";
+	    $rows = $this->fetchAll( $where, $order, '2');
+	    if(count($rows) > 0){
+	        $rows = $rows->toArray();
+	        return $rows;
+	    }
+	    return false;
+	}
+
+	public function getTopImageNews( $site=null )
+	{
+	    $belong = 1;
+	    if($site){
+	        $belong = 2;
+	  //      $class_id = 38;
+	    }
+	    $query = $this->_db->select()
+	                       ->from(array('a'=>$this->_name))
+	                       ->joinLeft(array('c'=>'classes'),"c.class_id = a.class_id")
+	                       ->where("c.belong = ?",$belong)
+	                       ->where("LENGTH(TRIM(image)) > 0 OR LENGTH(TRIM(video_embed)) > 0 ")
+						   ->limit(2)
+	                       ->order("a.article_id DESC");
+		
+	    $row = $this->_db->fetchAll($query);
+	    return $row;
+	}
+
+	public function updateClick($id)
+	{
+	    $row = $this->fetchRow("article_id = '$id'");
+	    if(!$row){
+	        return false;
+	    }
+	    $row->click = $row->click + 1;
+	    if($row->save())
+	        return true;
+	}
+}

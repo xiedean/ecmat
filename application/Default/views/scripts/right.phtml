@@ -1,0 +1,109 @@
+
+<?php if( $this->role == "user"):?>
+<div class="module_menu">
+    <div >
+       <div >
+           <div>
+               <h3>管理工具</h3>
+               <ul>
+                   <li><a href="<?php echo $this->url(array('action'=>'edit','controller'=>'myaccount'),null,true);?>">編輯我的信息</a></li>
+                   <li><a href="<?php echo $this->url(array('action'=>'logout','controller'=>'account'),null,true);?>">安全退出</a></li>
+               </ul>
+           </div>
+       </div>
+    </div>
+</div>
+<!--[if IE 6]>
+<div class="clr"></div>
+<div class="ie6sep"></div>
+<![endif]-->
+<?php endif;?>
+<div class="module_menu">
+    <div>
+       <div>
+           <div>
+                   <h3>今日看板</h3>
+                   <ul>
+                   <?php
+                   if($this->todayEvents):
+                       foreach($this->todayEvents as $row):
+                   ?>
+                   <li>
+                           <?php echo $row['title'];
+                           if((time()- strtotime($row['modify_time']))/3600 < 48) echo "<img src=\"{$this->baseUrl()}/images/icon-tips.gif\" class=\"noticesImage\">";?>
+                   </li>
+                   <?php
+                       endforeach;
+                   ?>
+                   <li class="moreLink">
+                       <a href="<?php echo $this->url(array('controller'=>'notice','id'=>2),null,true);?>">More</a>
+                   </li>
+                   <?php
+                   endif;
+                   ?>
+                   </ul>           </div>
+       </div>
+    </div>
+</div>
+<!--[if IE 6]>
+<div class="clr"></div>
+<div class="ie6sep"></div>
+<![endif]-->
+<div class="module_menu">
+    <div>
+       <div>
+           <div>
+               <div class="noticeBoard">
+                   <h3>活動公告</h3>
+                   <marquee onmouseout="this.start()" onmouseover="this.stop()" scorlldelay="200" scrollamount="1" direction="up">
+                   <ul>
+                   <?php
+                   if($this->notices):
+                       foreach($this->notices as $row):
+                   ?>
+                   <li>
+                           <?php echo $row['title'];
+                           if((time()- strtotime($row['modify_time']))/3600 < 48) echo "<img src=\"{$this->baseUrl()}/images/icon-tips.gif\" class=\"noticesImage\">";?>
+                   </li>
+                   <?php
+                       endforeach;
+                   endif;
+                   ?>
+                   </ul>
+                   </marquee>               </div>
+           </div>
+       </div>
+    </div>
+</div>
+<!--[if IE 6]>
+<div class="clr"></div>
+<div class="ie6sep"></div>
+<![endif]-->
+<div class="module_menu">
+    <div>
+       <div>
+           <div>
+                   <h3>明日活動</h3>
+                   <ul>
+                   <?php
+                   if($this->tomorrowEvents):
+                       foreach($this->tomorrowEvents as $row):
+                   ?>
+                   <li>
+                           <?php echo $row['title'];
+                           if((time()- strtotime($row['modify_time']))/3600 < 48) echo "<img src=\"{$this->baseUrl()}/images/icon-tips.gif\" class=\"noticesImage\">";?>
+                   </li>
+                   <?php
+                       endforeach;
+                   ?>
+                   <li class="moreLink">
+                       <a href="<?php echo $this->url(array('controller'=>'notice','id'=>3),null,true);?>">More</a>
+                   </li>
+                   <?php
+                   endif;
+                   ?>
+                   </ul>
+           </div>
+       </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+
+<?php
+    if($this->row):
+    ?>
+    <div class="componentheading"><?php echo $this->itemName($this->row['belong']);?></div>
+    <div class="contentList">
+        <?php echo $this->row['title'];?>
+        <span class="small"><?php echo $this->row['created'];?></span>
+    </div>
+
+    <?php
+    else:
+        echo "還沒有內容";
+    endif;
+    ?>

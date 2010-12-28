@@ -1,0 +1,32 @@
+<?php
+if($this->error):
+    echo "<div class=\"error\">$this->error</div>";
+else:
+    if($this->notice){
+    	echo "<div class=\"notice\">$this->notice</div>";
+    }
+?>
+<div class="header-line">
+    <?php echo $this->article['title'];?>
+    <span class="newPageLink">
+        <?php if($this->page):?>
+        <span class="pageItemLink">
+            [<a href="<?php echo $this->url(array('controller'=>'articles','action'=>'deletepage','module'=>'admin','id'=>$this->article['article_id'],'page'=>$this->page,'site'=>$this->site_id),null,true);?>">
+                删除
+            </a>]
+        </span>
+        <?php endif;?>
+        <span class="pageItemLink">
+            [<a href="javascript:history.go(-1);">返回</a>]
+        </span>
+    </span>
+</div>
+<?php
+    echo $this->form;
+
+?>
+
+
+<?php
+endif;
+?>

@@ -1,0 +1,26 @@
+
+<?php if ($this->pageCount): ?>
+<div class="paginationControl">
+<!-- Previous page link -->
+    <?php if (isset($this->previous)): ?>
+    <a href="<?php echo $this->url(array('page' => $this->previous, 'keyword'=>$this->keyword)); ?>">&lt; 上一頁</a> [
+    <?php else: ?>
+    <span class="disabled">&lt; 上一頁</span> [
+    <?php endif; ?>
+<!-- Numbered page links -->
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+        <a href="<?php echo $this->url(array('page' => $page, 'keyword'=>$this->keyword)); ?>"><?php echo $page; ?></a> ] <?php echo ($this->lastPageInRange==$page)?"":"["?>
+        <?php else: ?>
+        <?php echo $page; ?> ] <?php echo ($this->lastPageInRange==$page)?"":"["?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<!-- Next page link -->
+    <?php if (isset($this->next)): ?>
+    <a href="<?php echo $this->url(array('page' => $this->next, 'keyword'=>$this->keyword)); ?>">下一頁 &gt;</a>
+    <?php else: ?>
+    <span class="disabled">下一頁 &gt;</span>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
+

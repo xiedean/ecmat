@@ -1,0 +1,20 @@
+<?php
+if($this->error):
+    echo "<div class=\"error\">$this->error</div>";
+else:
+    if($this->notice){
+    	echo "<div class=\"notice\">$this->notice</div>";
+    }
+?>
+<div class="delete">確定要刪除<?php echo $this->itemName.": $this->deleteName"?> ?</div>
+<div class="delete">
+<form method="post" action="" name="deleteForm">
+    <input type="submit" id="submit-y" name="submit-y" class="form-submit" value="確定"></input>
+    <input type="submit" id="submit-n" name="submit-n" class="form-submit" value="取消"></input>
+</form>
+</div>
+
+
+<?php 
+endif;
+?>

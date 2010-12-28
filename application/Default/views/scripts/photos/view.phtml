@@ -1,0 +1,27 @@
+<div class="navDiv">
+<?php
+            if($this->navArray){
+                foreach($this->navArray as $key=>$nav){
+                    if($key != "title")
+                        echo "  <a href=\"$nav\">$key</a> >";
+                    else
+                        echo " <span class=\"componentheading\">$nav</span> ";
+                }
+
+            }
+        ?>
+</div>
+<div class="btnLine">
+    <a id="btnPre">上一張</a>
+    <a id="btnNext">下一張</a>
+    <div class="clr"></div>
+</div>
+<div id="imageDiv">
+    <div id="cacheDiv"><img src="<?php echo $this->baseUrl();?>/images/loading.gif"></div>
+    <img id="myphoto" src="<?php echo $this->baseUrl().$this->albumnPath.$this->data['albumn_id']."/".$this->data['string'];?>">
+    <div id="photoName"><?php echo $this->data['photo_name'];?></div>
+    <div id="leftHandle"></div>
+    <div id="rightHandle"></div>
+</div>
+
+

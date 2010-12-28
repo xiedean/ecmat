@@ -1,0 +1,52 @@
+
+<div class="componentheading">活动讯息</div>
+<div class="componentList">
+        <?php
+        if($this->articles1):
+            foreach($this->articles1 as $key => $data1):
+
+        ?>
+    <div class="contentheading2">
+        <a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$data1['article_id']),null,true);?>">
+            <?php echo $data1['title'];?>
+        </a>
+    </div>
+    <div class="small">
+        <span class="line">编辑：<?php echo $data1['author'];?></span>
+        <span class="line"><?php echo $data1['modify_time'];?></span>
+    </div>
+    <div class="contentDetail">
+        <?php if($this->imageNews && $key == 0):?>
+        <div class="imageNewsFloat">
+            <div class="news_image">
+                <a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$this->imageNews['article_id']),null,true);?>">
+                    <?php echo "<img src=\"{$this->baseUrl()}{$this->imagePath}{$this->imageNews['image']}\" class=\"newsImage\">"; ?>
+                </a>
+            </div>
+            <div class="contentheading center">
+                <a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$this->imageNews['article_id']),null,true);?>">
+                    <?php echo $this->imageNews['title']; ?>
+                </a>
+            </div>
+            <div class="news_word">
+               <a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$this->imageNews['article_id']),null,true);?>">
+                   <?php echo $this->utf8strlen($this->imageNews['content'])> 30? $this->utf8substr($this->imageNews['content'],0, 30)."...": $this->utf8substr($this->imageNews['content']); ?>
+               </a>
+            </div>
+        </div>
+        <?php endif;?>
+
+        <?php echo $data1['content']; ?>
+
+    </div>
+    <?php if($key == 0 ):?>
+    <div class="dots"></div>
+    <?php endif;?>
+        <?php
+            endforeach;
+        else:
+            echo "<div>还没有内容</div>";
+        endif;
+        ?>
+</div>
+

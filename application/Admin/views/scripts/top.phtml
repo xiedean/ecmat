@@ -1,0 +1,27 @@
+<div class="top-div">
+    <div id="logo-admin">CMAT</div>
+    <div id="breadcrumb">
+        <a href="<?php echo $this->baseUrl(); ?>/admin">管理首頁</a> 
+        <?php
+            if($this->navArray){
+                foreach($this->navArray as $key=>$nav){
+                    if($key != "title")
+                        echo " >  <a href=\"$nav\">$key</a>";
+                    else 
+                        echo " > $nav";
+                }
+                
+            }
+        ?>
+    </div>
+    <?php if( !in_array($this->controllerName,array('index')) ):?>
+    <div id="create-new">
+    
+        <a href="<?php echo $this->url(array('module'=>$this->moduleName,'controller'=>$this->controllerName,'action'=>'edit', 'site'=>$this->site_id),null,true);?>">
+	                     添加新 <?php echo $this->itemName ? $this->itemName : $this->controllerName; ?> 
+	    </a>
+        
+    </div>
+    <?php endif;?>
+    <div class="clr"></div>
+</div> 
