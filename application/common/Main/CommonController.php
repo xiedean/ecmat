@@ -93,6 +93,16 @@ class Main_CommonController extends Moore_Controller_Action
         $response->insert('right',$this->view->render('right.phtml'));
 
         $this->innerPostDispatch();
+		
+		//update site visite
+		if($this->_request->getControllerName() != "cron" && $this->_request->getModuleName() != "admin") {
+			var_dump($_COOKIE);
+			if(!isset($_COOKIE['site_visit'])) {
+				setcookie('site_visit',1,time()+3600*24);
+				$preferences = new Preferences();
+				$preferences->updateVisit();
+			}
+		}
 	}
 
 	public function innerPostDispatch()
