@@ -35,6 +35,16 @@ class CategoryController extends Main_CommonController
             $where .= ")";
             $this->view->subClass = true;
         }
+		$group = $input->getEscaped('group');
+		$isGroup = false;
+		if($group) {
+			$groupTable = new ArticleGroups();
+			$this->view->group = $row = $groupTable->load($group);
+			if($row) {
+				$isGroup = true;
+				$where .= " and a.article_group_id = '$group'";
+			}
+		}
 		$currentPageNumber = $input->getEscaped('page')>0 ?$input->getEscaped('page'):1;
 		$order_spec = array("article_id DESC");
 
@@ -44,7 +54,7 @@ class CategoryController extends Main_CommonController
 		$pageRange = $registry->get('adminPageRange');
 
 		$table = new Articles();
-		$query = $table->getAllQuery( $this->view->site,$where,$order_spec);
+		$query = $table->getAllQuery( $this->view->site,$where,$order_spec,null, $isGroup);
 
 		$paginator = Zend_Paginator::factory($query);
 		$paginator->setCurrentPageNumber($currentPageNumber)
@@ -53,7 +63,6 @@ class CategoryController extends Main_CommonController
 
 		$this->view->paginator = $paginator;
 		$this->view->count = $paginator->getCurrentItemCount();
-
 		$this->view->className = $classes->getClassName($id);
     }
 }

@@ -1,4 +1,11 @@
-<div class="componentheading"><?php echo $this->className;?></div>
+﻿<div class="componentheading">
+	<?php echo $this->className;?>
+</div>
+
+<?php if($this->group) :?>
+<h2><?php echo $this->group['article_group_name'];?></h2>
+
+<?php endif;?>
 
 <div class="componentList">
     <ul class="listOne">
@@ -7,16 +14,28 @@ if($this->paginator):
 foreach($this->paginator as $item):
 ?>
         <li>
-            <?php if($item['subtitle']):?>
+			<?php if($item['article_group_name'] && !$this->group):?>
+			
+			<a href="<?php echo $this->url(array('controller'=>'category','id'=>$item['class_id'],'group'=>$item['article_group_id']),null,true);?>">
+                <?php echo $this->placeGreen($item['article_group_name']);?>
+            </a>
+				<?php if($this->subClass):?>
+            <span class="small">[ <a href="<?php echo $this->url(array('controller'=>'category','id'=>$item['class_id']),null,true);?>"><?php echo $item['class_name'];?></a> ]</span>
+				<?php endif;?>
+				
+			<?php else:?>
+			
+				<?php if($item['subtitle']):?>
             <span class="title2"><?php echo $item['subtitle'];?></span>
-            <?php endif;?>
+				<?php endif;?>
             <a href="<?php echo $this->url(array('controller'=>'article','action'=>'detail','id'=>$item['article_id']),null,true);?>">
                 <?php echo $this->placeGreen($item['title']);?>
             </a>
-            <?php if($this->subClass):?>
+				<?php if($this->subClass):?>
             <span class="small">[ <a href="<?php echo $this->url(array('controller'=>'category','id'=>$item['class_id']),null,true);?>"><?php echo $item['class_name'];?></a> ]</span>
-            <?php endif;?>
-            <span class="small"><?php echo $item['created'];?></span>
+				<?php endif;?>
+			<?php endif;?>
+			<span class="small"><?php echo $item['created'];?></span>
         </li>
 
 <?php
