@@ -28,14 +28,7 @@ class Moore_Controller_Action extends Zend_Controller_Action
 
 	//	$this->view->addBasePath('./application/views/');
 
-	    //update site visite
-		if($this->_request->getControllerName() != "cron" && $this->_request->getModuleName() != "admin") {
-			if(!isset($_COOKIE['site_visit'])) {
-				setcookie('site_visite',1,time()+3600*24);
-				$preferences = new Preferences();
-				$preferences->updateVisit();
-			}
-		}
+	    
 		$this->commonDispatch();
 	}
 
