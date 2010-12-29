@@ -96,7 +96,19 @@ class ArticleAddForm extends Form_MooreForm
                 
                 )
         );
-         
+        $articleGroup = new Zend_Form_Element_Select(
+            'article_group_id',
+            array(
+                'filters'      => array('StringTrim'),
+                'validators'   => array( new Validate_StringLength(1,500) ),
+                'required'     => false,
+                'class'        => 'form3',
+                'label'        => '文章組'
+            )
+        );
+		$articleGroupsTable = new ArticleGroups();
+		$articleGroup->setMultiOptions($articleGroupsTable->getOptions());
+		
         $time_created = new Zend_Form_Element_Hidden(
             'created',
             array(
@@ -184,7 +196,7 @@ class ArticleAddForm extends Form_MooreForm
         $submit = new Form_Element_Submit('添加','submit',false);
 
         if($this->_site_id == '1') {
-            $this->addElements( array($class, $subtitle, $title, $auth, $focus, $activity, $time_created, $time_modify, $content, $image, $video_embed, $status, $submit) );
+            $this->addElements( array($class, $subtitle, $title, $auth, $time_created, $time_modify, $content, $focus, $activity, $articleGroup, $image, $video_embed, $status, $submit) );
         }else {
             $this->addElements( array($title, $auth, $class, $time_created, $time_modify, $content, $image, $video_embed, $status, $submit) );
         }
