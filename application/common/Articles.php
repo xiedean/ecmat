@@ -15,7 +15,7 @@ class Articles extends Moore_Db_Table
 	 */
 	protected $_name = 'articles';
 
-    public function getAllQuery( $site_id,$where=null,$order=null,$limit=null )
+    public function getAllQuery( $site_id,$where=null,$order=null,$limit=null, $group=null )
 	{
 		$groupField = "if(a.article_group_id='' or a.article_group_id is null, a.article_id, a.article_group_id)";
 		$query = $this->_db->select()
@@ -42,7 +42,9 @@ class Articles extends Moore_Db_Table
 		if($limit){
 			$query->limit($limit);
 		}
-		$query->group($groupField);
+		if(!$group) {
+			$query->group($groupField);
+		}
 
 		return $query;
 	}
