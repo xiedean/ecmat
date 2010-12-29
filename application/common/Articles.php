@@ -17,10 +17,19 @@ class Articles extends Moore_Db_Table
 
     public function getAllQuery( $site_id,$where=null,$order=null,$limit=null )
 	{
+		$groupField = "if(a.article_group_id='' or a.article_group_id is null, a.article_id, a.article_group_id)";
 		$query = $this->_db->select()
-		              ->from( array('a'=>$this->_name),array('*','id'=>'article_id'))
-		              ->joinLeft( array('c'=>'classes'),'c.class_id = a.class_id','*')
-		              ->where( "c.belong = ?",$site_id);
+						->from( 
+							array('a'=>$this->_name),
+							array(
+								'*',
+								'id'=>'article_id',
+								'group_field'=> $groupField
+							)
+						)
+						->joinLeft( array('c'=>'classes'),'c.class_id = a.class_id','*')
+						->joinLeft( array('g'=>'article_groups'),'a.article_group_id = g.article_group_id','*')
+						->where( "c.belong = ?",$site_id);
 		if($where){
 			$query->where($where);
 		}
@@ -33,6 +42,7 @@ class Articles extends Moore_Db_Table
 		if($limit){
 			$query->limit($limit);
 		}
+		$query->group($groupField);
 
 		return $query;
 	}

@@ -21,7 +21,7 @@ class Classes extends Moore_Db_Table
 		if( !$site_id ){
 			return false;
 		}
-		$rows = $this->fetchAll("belong = '$site_id'");
+		$rows = $this->fetchAll("belong = '$site_id'","convert(class_name using gbk)");
 		if($rows){
 			$rows = $rows->toArray();
 		}

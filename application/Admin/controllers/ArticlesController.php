@@ -31,6 +31,12 @@ class Admin_ArticlesController extends Main_AdminController
 			    'colType'  => 'text',
 				'colTitle' => '欄目'
 			),
+			
+			array(
+			    'colName'  => 'article_group_name',
+			    'colType'  => 'text',
+				'colTitle' => '文章組'
+			),
 
 			array(
 			    'colName'  => 'modify_time',
@@ -170,31 +176,7 @@ class Admin_ArticlesController extends Main_AdminController
 			$this->view->notice = "圖片文件上傳失敗";
 			return;
 		}
-	    if( $form->news_video->isUploaded() ){
-		     //获取上传的文件名
-            $tmp_filename_str = $form->news_video->getFileName();
-            $tmp_filename_str = strtolower($tmp_filename_str);
-            while(file_exists(iconv("UTF-8","gb2312",$tmp_filename_str)))  {
-                $pos = strrpos($tmp_filename_str, ".");
-                if (!$pos) {
-                    $this->view->notice = "上傳失敗，視頻文件格式不對";
-                    return;
-                }
-                $fileName = substr($tmp_filename_str, 0, $pos);//获得文件主名
-                $fileNamelast=substr(strrchr($tmp_filename_str, '.'), 1);//获得文件扩展名
-                $fileName = $fileName . time();//获得新命名
-
-                $tmp_filename_str = $fileName.'.'.$fileNamelast;
-              //  $tmp_newfilename_str  = str_replace($path,"",$tmp_filename_str);
-                $form->news_video->addFilter('Rename', $tmp_filename_str);
-            }
-		}
-
-		if(!$form->news_video->receive() ) {
-			$this->view->notice = "视頻文件上傳失敗";
-			return;
-		}
-
+	    
 		$data = parent::formatData( $form->getValues());
 		if($form->news_image->getValue()){
 		    $data['image'] = $form->news_image->getValue();
@@ -203,9 +185,7 @@ class Admin_ArticlesController extends Main_AdminController
 				$form->image->setDescription( $str );
 		    }
 		}
-	    if($form->news_video->getValue()){
-		    $data['video'] = $form->news_video->getValue();
-		}
+
 		$table = new Articles();
 		if($id){
 			$result = $table->update($data,"article_id = '$id'");

@@ -1,32 +1,32 @@
  <?php
     if($this->row):
     ?>
-    <?php if(trim($this->row['video']) && !trim($this->row['video_embed'])):?>
-	    <script type="text/javascript">
-		function VideoShowOnload() {
-		    	var so = new SWFObject('<?php echo $this->baseUrl();?>/player/player.swf','mpl','500','400','9');
-		    	so.addParam('allowscriptaccess','always');
-		    	so.addParam('allowfullscreen','true');
-		    	so.addVariable('enablejs','true');
-		    	so.addVariable('javascriptid','mpl');
-		    	so.addVariable('type','flv');
-		    	so.addParam('autostart','false');
-		    	so.addParam('flashvars','&file=<?php echo $this->domain().$this->baseUrl.$this->videoPath().$this->row['video'];?>&image=<?php echo $this->domain().$this->baseUrl.$this->imagePath().$this->row['image'];?>');
-		    	so.write('playerDiv');
-		    	//setTimeout("so.write('news_image');",10);
-		    }
-		    $(document).ready(function(){
-		    	VideoShowOnload();
-		    });
-		</script>
-	<?php endif;?>
     <div class="contentheading3"><?php echo $this->placeGreen($this->row['title']);?></div>
     <div class="small center">
         <span class="line">編輯：<?php echo $this->row['author'];?></span>
         <span class="line"><?php echo $this->row['created'];?></span>
     </div>
     <div class="contentDetail">
-    	<div id="playerDiv"></div>		<?php if(trim($this->row['video_embed'])) :?>		<div class="center">			<?php echo $this->row['video_embed'];?>		</div>		<?php endif;?>				<?php if(trim($this->row['image'])):?>		<div class="center">			<image src="<?php echo $this->baseUrl().$this->imagePath().$this->row['image'];?>" id="imageContent"/>		</div>		<script>			$(document).ready(function(){				var width = $("img#imageContent").width();				if(width > 520){					width = 520;					$("img#imageContent").width(width);				}			});		</script>		<?php endif;?>
+    	<div id="playerDiv"></div>		
+		<?php if(trim($this->row['video_embed'])) :?>		
+		<div class="center">			
+			<?php echo $this->row['video_embed'];?>		
+		</div>		
+		<?php endif;?>				
+		<?php if(trim($this->row['image'])):?>
+		<div class="center">
+			<image src="<?php echo $this->image($this->row['image'])->resize(520);?>" id="imageContent"/>		
+		</div>		
+		<script>
+			$(document).ready(function(){		
+				var width = $("img#imageContent").width();		
+				if(width > 520){			
+					width = 520;				
+					$("img#imageContent").width(width);		
+				}			
+			});	
+		</script>	
+		<?php endif;?>
         <?php echo $this->content; ?>
     </div>
     <?php if($this->pages):?>
