@@ -6,6 +6,7 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d 
 RewriteCond %{HTTP_HOST} ^newgf\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.newgf\.org$ [NC]
+RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index2.php [NC,L]
 
 
